@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:olx_clone/StoreHome/storeHomepage.dart';
 import 'package:olx_clone/authentication/loginOptions.dart';
 import 'package:olx_clone/authentication/loginScreen.dart';
-
 
 void main() {
   runApp(MyApp());
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Color.fromRGBO(0, 48, 52, 0),
         primarySwatch: Colors.blue,
       ),
-      home: loginOptions(),
+      home: storeHomepage(),
     );
   }
 }
