@@ -1,6 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mdeveloper.olx_clone">
+   
+
+
+
    <application
+        
         android:label="olx_clone"
         android:icon="@mipmap/ic_launcher">
         <activity

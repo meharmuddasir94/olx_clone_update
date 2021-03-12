@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:olx_clone/StoreHome/storeHomepage.dart';
+
 import 'package:olx_clone/authentication/loginOptions.dart';
+// ignore: unused_import
 import 'package:olx_clone/authentication/loginScreen.dart';
 
 void main() {

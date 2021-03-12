@@ -3,11 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:olx_clone/authentication/loginScreen.dart';
 import 'package:olx_clone/customIcon/custom_icon_icons.dart';
 
+// ignore: camel_case_types
 class loginOptions extends StatefulWidget {
   @override
   _loginOptionsState createState() => _loginOptionsState();
 }
 
+// ignore: camel_case_types
 class _loginOptionsState extends State<loginOptions> {
   Color background = Color(0xff003034);
   @override

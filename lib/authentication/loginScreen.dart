@@ -2,11 +2,13 @@ import 'dart:ui';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 
+// ignore: camel_case_types
 class loginScreen extends StatefulWidget {
   @override
   _loginScreenState createState() => _loginScreenState();
 }
 
+// ignore: camel_case_types
 class _loginScreenState extends State<loginScreen> {
   Color background = Color(0xff003034);
   Color textColor = Color(0xffe2bb51);
@@ -293,6 +295,7 @@ class _loginScreenState extends State<loginScreen> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Container SignupSection() {
     return Container(
       margin: EdgeInsets.only(top: 20),
