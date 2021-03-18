@@ -11,15 +11,18 @@ class _drawerScreenState extends State<drawerScreen> {
   Widget build(BuildContext context) {
     return Container(
       color: primaryGreen,
+      padding: EdgeInsets.only(top: 50, bottom: 70, left: 10),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
               CircleAvatar(),
               SizedBox(
-                height: 10,
+                width: 10,
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "Muhammad Amir",
@@ -28,8 +31,7 @@ class _drawerScreenState extends State<drawerScreen> {
                   ),
                   Text(
                     "Muhammad Amir",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.white),
                   )
                 ],
               )
@@ -38,24 +40,27 @@ class _drawerScreenState extends State<drawerScreen> {
           Column(
             children: drawerItems
                 .map(
-                  (element) => Row(
-                    children: [
-                      Icon(
-                        element['icon'],
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        element['title'],
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                    ],
+                  (element) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          element['icon'],
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          element['title'],
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                      ],
+                    ),
                   ),
                 )
                 .toList(),
@@ -67,7 +72,7 @@ class _drawerScreenState extends State<drawerScreen> {
                 color: Colors.white,
               ),
               SizedBox(
-                height: 10,
+                width: 10,
               ),
               Text(
                 "Setting",
@@ -75,7 +80,7 @@ class _drawerScreenState extends State<drawerScreen> {
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               SizedBox(
-                height: 10,
+                width: 10,
               ),
               Container(
                 width: 2,
@@ -83,7 +88,7 @@ class _drawerScreenState extends State<drawerScreen> {
                 color: Colors.white,
               ),
               SizedBox(
-                height: 10,
+                width: 10,
               ),
               Text(
                 "Setting",

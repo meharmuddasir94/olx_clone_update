@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:olx_clone/Screen/postScreen1.dart';
-import 'package:olx_clone/StoreHome/homepages/account.dart';
+import 'package:olx_clone/Screen/postScreenfinal.dart';
+import 'package:olx_clone/StoreHome/homepages/accountLogedin.dart';
+import 'package:olx_clone/StoreHome/homepages/accountwithoutLogedin.dart';
 import 'package:olx_clone/StoreHome/homepages/chat.dart';
 import 'package:olx_clone/StoreHome/homepages/dashboard.dart';
-import 'package:olx_clone/StoreHome/homepages/favorite.dart';
+import 'package:olx_clone/StoreHome/homepages/myADs.dart';
 
 class storeHomepage extends StatefulWidget {
   @override
@@ -14,18 +15,21 @@ class _storeHomepageState extends State<storeHomepage> {
   int currentTab = 0;
   final List<Widget> screen = [
     dashboard(),
+    accountLogedin(),
     account(),
     chat(),
-    favorite(),
+    myADs(),
   ];
   Widget currentSCreen = dashboard();
   final PageStorageBucket bucket = PageStorageBucket();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
+      //  drawer: drawerScreen(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Route route = MaterialPageRoute(builder: (_) => postScreen1());
+          Route route = MaterialPageRoute(builder: (_) => postScreenFinal());
           Navigator.push(context, route);
         },
         child: Icon(Icons.add),
@@ -103,7 +107,7 @@ class _storeHomepageState extends State<storeHomepage> {
                     minWidth: 50,
                     onPressed: () {
                       setState(() {
-                        currentSCreen = favorite();
+                        currentSCreen = myADs();
                         currentTab = 2;
                       });
                     },
@@ -127,7 +131,7 @@ class _storeHomepageState extends State<storeHomepage> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentSCreen = account();
+                        currentSCreen = accountLogedin();
                         currentTab = 3;
                       });
                     },

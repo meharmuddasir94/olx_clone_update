@@ -1,24 +1,24 @@
-
 import 'package:flutter/material.dart';
+import 'package:olx_clone/configuration.dart';
+import 'dart:core';
 
-import '../configuration.dart';
-
-class postScreenFinal extends StatefulWidget {
+class account extends StatefulWidget {
   @override
-  _postScreenFinalState createState() => _postScreenFinalState();
+  _accountState createState() => _accountState();
 }
 
-class _postScreenFinalState extends State<postScreenFinal> {
-  String chooseValue = " Dog";
+class _accountState extends State<account> {
+  String chooseValue = "Dog";
 
-  List _categoryList = [" Dog", " Cat", " Bird", " Bunny", " Horse", " Fish"];
+  List _categoryList = ["Dog", "Cat", "Bird", "Bunny", "Horse", "Fish"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
         backgroundColor: Colors.grey[300],
-        title: Text("Post an  AD"),
+        title: Text("Account"),
         centerTitle: true,
         elevation: 0,
       ),
@@ -106,9 +106,9 @@ class _postScreenFinalState extends State<postScreenFinal> {
             ),
             Container(
               height: 50,alignment: Alignment.topLeft,
-              margin: EdgeInsets.only(top: 10,left: 8,),
-              padding: EdgeInsets.all(8),
-              child: Text(
+             margin: EdgeInsets.only(top: 10,left: 8,),
+             padding: EdgeInsets.all(8),
+             child: Text(
                 "Select Category",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
@@ -119,39 +119,34 @@ class _postScreenFinalState extends State<postScreenFinal> {
 
                 right: 20,
               ),
-
+              padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: DropdownButton(
-
-                  dropdownColor: Colors.white,
-                  hint: Text("Select Category"),
-                  value: chooseValue,
-                  isExpanded: true,
-
-                  icon: Icon(
-                    Icons.arrow_drop_down,
-                    size: 30,
-                  ),
-
-                  items: _categoryList.map<DropdownMenuItem<String>>((value){
-                    return DropdownMenuItem <String>(
-
-                      child: Text(value),
-                      value: value,);
-                  }).toList(),
-                  onChanged: (value) {
-
-                    setState(() {
-                      String value1=value.toString();
-                      chooseValue = value1;
-                    });
-                  },
+              child: DropdownButton(
+                dropdownColor: Colors.white,
+                hint: Text("Select Category"),
+                value: chooseValue,
+                isExpanded: true,
+                icon: Icon(
+                  Icons.arrow_drop_down,
+                  size: 30,
                 ),
+
+                items: _categoryList.map<DropdownMenuItem<String>>((value){
+                  return DropdownMenuItem <String>(
+
+                    child: Text(value),
+                    value: value,);
+                }).toList(),
+                onChanged: (value) {
+
+                  setState(() {
+                    String value1=value.toString();
+                    chooseValue = value1;
+                  });
+                },
               ),
             ),
 
@@ -194,34 +189,35 @@ class _postScreenFinalState extends State<postScreenFinal> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    height: 70,
-                    width: MediaQuery.of(context).size.width/2,
-                    margin: EdgeInsets.only(
-                      left: 10,
-                      // right: 20,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: TextField(
-                      maxLines: 1,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  height: 70,
+                  width: MediaQuery.of(context).size.width/2,
+                  margin: EdgeInsets.only(
+                    left: 10,
+                   // right: 20,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: TextField(
+                    maxLines: 1,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
                         hintText: "Min Price",
-                        border:InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                      ),
-                    ),
+                      border:InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                        ),
                   ),
                 ),
-                Container(
+              ),
+              Expanded(
+                child: Container(
                   padding: EdgeInsets.all(10),
                   height: 70,
                   width: MediaQuery.of(context).size.width/2,
@@ -238,37 +234,22 @@ class _postScreenFinalState extends State<postScreenFinal> {
                     maxLines: 1,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      hintText: "Max Price",
+                        hintText: "Max Price",
                       border:InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      errorBorder: InputBorder.none,
-                      disabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
 
-                    ),
+                        ),
                   ),
-                ),
-
-              ],),
-
-
-              Container(
-                height: 70,
-                margin: EdgeInsets.only(left: 20,right: 20,top: 30,bottom: 30),
-width: MediaQuery.of(context).size.width-10,
-                decoration: BoxDecoration(
-                  color: primaryGreen,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: FlatButton(
-                  onPressed: null,
-                  hoverColor: Colors.grey,
-                  child: Text("Submit",
-                    style: TextStyle(fontSize: 20,color: Colors.white, fontWeight: FontWeight.bold),),
-                  
                 ),
               ),
 
+            ],),
+            SizedBox(
+              height: 20,
+            )
 
           ],
         ),

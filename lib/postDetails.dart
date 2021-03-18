@@ -37,7 +37,22 @@ class postDetails extends StatelessWidget {
                     },
                     icon: Icon(Icons.arrow_back_ios),
                   ),
-                  IconButton(onPressed: null, icon: Icon(Icons.share))
+                  Row(
+                    children: [
+                      IconButton(
+                          onPressed: null,
+                          icon: Icon(
+                            Icons.favorite_border_outlined,
+                            color: Colors.black,
+                          )),
+                      IconButton(
+                          onPressed: null,
+                          icon: Icon(
+                            Icons.share,
+                            color: Colors.black,
+                          )),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -54,11 +69,27 @@ class postDetails extends StatelessWidget {
             alignment: Alignment.center,
             child: Container(
               height: 120,
+              width: MediaQuery.of(context).size.width * 0.85,
               margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: shadowList,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(left: 15, top: 10),
+                      child: Text(
+                        "Data",
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ))
+                ],
               ),
             ),
           ),

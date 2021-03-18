@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:olx_clone/configuration.dart';
+import 'package:olx_clone/drawer.dart';
 import 'package:olx_clone/postDetails.dart';
 
 class dashboard extends StatefulWidget {
@@ -12,6 +13,7 @@ class _dashboardState extends State<dashboard> {
   double yoffSet = 0;
   double scaleFactor = 1;
   bool drawerState = false;
+  bool isFavorite = false;
   List<Map> categories = [
     {'name': 'Cats', 'iconPath': 'images/cat.png'},
     {'name': 'Dogs', 'iconPath': 'images/dog.png'},
@@ -22,127 +24,131 @@ class _dashboardState extends State<dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      transform: Matrix4.translationValues(xoffSet, yoffSet, 0)
-        ..scale(scaleFactor),
-      duration: Duration(
-        milliseconds: 250,
-      ),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(drawerState ? 30.0 : 0.0),
-      ),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                //color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
+    return Stack(children: [
+      drawerScreen(),
+      AnimatedContainer(
+        transform: Matrix4.translationValues(xoffSet, yoffSet, 0)
+          ..scale(scaleFactor)
+          ..rotateY(drawerState ? -0.5 : 0),
+        duration: Duration(
+          milliseconds: 500,
+        ),
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(drawerState ? 30.0 : 0.0),
+        ),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 30,
               ),
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  drawerState
-                      ? IconButton(
-                          onPressed: () {
-                            setState(() {
-                              xoffSet = 0;
-                              yoffSet = 0;
-                              scaleFactor = 1;
-                              drawerState = false;
-                            });
-                          },
-                          icon: Icon(Icons.arrow_back_ios))
-                      : IconButton(
-                          onPressed: () {
-                            setState(() {
-                              xoffSet = 230;
-                              yoffSet = 150;
-                              scaleFactor = 0.6;
-                              drawerState = true;
-                            });
-                          },
-                          icon: Icon(Icons.menu),
+              Container(
+                decoration: BoxDecoration(
+                  //color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    drawerState
+                        ? IconButton(
+                            onPressed: () {
+                              setState(() {
+                                xoffSet = 0;
+                                yoffSet = 0;
+                                scaleFactor = 1;
+                                drawerState = false;
+                              });
+                            },
+                            icon: Icon(Icons.arrow_back_ios))
+                        : IconButton(
+                            onPressed: () {
+                              setState(() {
+                                xoffSet = 230;
+                                yoffSet = 150;
+                                scaleFactor = 0.6;
+                                drawerState = true;
+                              });
+                            },
+                            icon: Icon(Icons.menu),
+                          ),
+                    Column(
+                      children: [
+                        Text(
+                          "Location",
+                          textAlign: TextAlign.end,
                         ),
-                  Column(
-                    children: [
-                      Text(
-                        "Location",
-                        textAlign: TextAlign.end,
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.location_on,
-                            color: Colors.lightGreen,
-                          ),
-                          Text("Lahore"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  CircleAvatar()
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Icon(Icons.search_outlined),
-                  Text("Search Pet"),
-                  Icon(Icons.settings),
-                ],
-              ),
-            ),
-            Container(
-              height: 120,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            margin: EdgeInsets.only(left: 20),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: shadowList,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Image.asset(
-                              categories[index]['iconPath'],
-                              height: 50,
-                              width: 50,
-                              color: Colors.grey[700],
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              color: Colors.lightGreen,
                             ),
-                          ),
-                          Text(categories[index]['name'])
-                        ],
-                      ),
-                    );
-                  }),
-            ),
-            buildListADs(),
-            buildListADs(),
-            buildListADs(),
-          ],
+                            Text("Lahore"),
+                          ],
+                        ),
+                      ],
+                    ),
+                    CircleAvatar()
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(Icons.search_outlined),
+                    Text("Search Pet"),
+                    Icon(Icons.settings),
+                  ],
+                ),
+              ),
+              Container(
+                height: 120,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: categories.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              margin: EdgeInsets.only(left: 20),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: shadowList,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Image.asset(
+                                categories[index]['iconPath'],
+                                height: 50,
+                                width: 50,
+                                color: Colors.grey[700],
+                              ),
+                            ),
+                            Text(categories[index]['name'])
+                          ],
+                        ),
+                      );
+                    }),
+              ),
+              buildListADs(),
+              buildListADs(),
+              buildListADs(),
+            ],
+          ),
         ),
       ),
-    );
+    ]);
   }
 
   Widget buildListADs() {
@@ -170,7 +176,35 @@ class _dashboardState extends State<dashboard> {
                   ),
                   Align(
                     child: Image.asset('images/pet-cat2.png'),
-                  )
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 45),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            if (isFavorite) {
+                              isFavorite = false;
+                            } else {
+                              isFavorite = true;
+                            }
+                          });
+                        },
+                        icon: isFavorite
+                            ? Icon(
+                                Icons.favorite,
+                                size: 26,
+                                color: Colors.black,
+                              )
+                            : Icon(
+                                Icons.favorite_border_outlined,
+                                size: 26,
+                                color: Colors.black,
+                              ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -186,7 +220,7 @@ class _dashboardState extends State<dashboard> {
                   boxShadow: shadowList,
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
