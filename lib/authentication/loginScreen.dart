@@ -1,7 +1,10 @@
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:olx_clone/StoreHome/storeHomepage.dart';
 import 'package:olx_clone/services/auth_service.dart';
 
@@ -24,6 +27,9 @@ class _loginScreenState extends State<loginScreen> {
   final fullnameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  GoogleSignIn googleSignIn = GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
@@ -151,13 +157,21 @@ class _loginScreenState extends State<loginScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      socialButton(
-                        CommunityMaterialIcons.facebook,
-                        "Facebook",
-                        Color(0xff075691),
+                      InkWell(
+                        onTap: () {},
+                        child: socialButton(
+                          CommunityMaterialIcons.facebook,
+                          "Facebook",
+                          Color(0xff075691),
+                        ),
                       ),
-                      socialButton(CommunityMaterialIcons.google_plus, "Google",
-                          Colors.redAccent),
+                      InkWell(
+                        onTap: () {
+                          signinGoogle();
+                        },
+                        child: socialButton(CommunityMaterialIcons.google_plus,
+                            "Google", Colors.redAccent),
+                      ),
                     ],
                   ),
                 )
@@ -507,5 +521,49 @@ class _loginScreenState extends State<loginScreen> {
         backgroundColor: Colors.red,
         textColor: Colors.white,
         fontSize: 16.0);
+  }
+
+  Future<User?> signinGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
+      if (googleSignIn != null) {
+        GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount!.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+            accessToken: googleSignInAuthentication.accessToken,
+            idToken: googleSignInAuthentication.idToken);
+        final UserCredential authResult =
+            await _auth.signInWithCredential(credential);
+        final User user = authResult.user!;
+        var userData = {
+          "name": googleSignInAccount.displayName,
+          'provider': 'google',
+          'photoUrl': googleSignInAccount.photoUrl,
+          'email': googleSignInAccount.email,
+        };
+        users.doc(user.uid).get().then((doc) => {
+              if (doc.exists)
+                {
+                  doc.reference.update(userData),
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => storeHomepage()),
+                  ),
+                }
+              else
+                {
+                  users.doc(user.uid).set(userData),
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => storeHomepage()),
+                  ),
+                }
+            });
+      }
+    } catch (PlatformException) {
+      print(PlatformException);
+      print("SignIn Not Success");
+    }
   }
 }
