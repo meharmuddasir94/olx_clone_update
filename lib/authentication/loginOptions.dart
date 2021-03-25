@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:olx_clone/StoreHome/storeHomepage.dart';
 import 'package:olx_clone/authentication/loginScreen.dart';
 import 'package:olx_clone/customIcon/custom_icon_icons.dart';
 
@@ -20,8 +21,15 @@ class _loginOptionsState extends State<loginOptions> {
         elevation: 0,
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.cancel_sharp),
-          onPressed: null,
+          icon: Icon(
+            Icons.cancel_sharp,
+            color: Colors.grey,
+            size: 22,
+          ),
+          onPressed: () {
+            Route route = MaterialPageRoute(builder: (_) => storeHomepage());
+            Navigator.pushReplacement(context, route);
+          },
           iconSize: 25,
         ),
       ),
@@ -164,9 +172,16 @@ class _loginOptionsState extends State<loginOptions> {
                               MaterialStateProperty.all(Colors.white),
                         ),
                         onPressed: () {
-                          Route route =
-                              MaterialPageRoute(builder: (_) => loginScreen());
-                          Navigator.pushReplacement(context, route);
+                          // dispose();
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => loginScreen(),
+                            ),
+                          );
+
+                          //        MaterialPageRoute(builder: (_) => loginScreen());
+                          //  Navigator.push(context, route);
                         },
                         child: Row(
                           children: [

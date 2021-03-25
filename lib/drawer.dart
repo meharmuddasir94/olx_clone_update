@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:olx_clone/authentication/loginScreen.dart';
 import 'package:olx_clone/configuration.dart';
+import 'package:olx_clone/services/auth_service.dart';
 
 class drawerScreen extends StatefulWidget {
   @override
@@ -7,6 +9,7 @@ class drawerScreen extends StatefulWidget {
 }
 
 class _drawerScreenState extends State<drawerScreen> {
+  AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -90,10 +93,25 @@ class _drawerScreenState extends State<drawerScreen> {
               SizedBox(
                 width: 10,
               ),
-              Text(
-                "Setting",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              InkWell(
+                onTap: () {
+                  _authService.signOut();
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => loginScreen()));
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.logout,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      "Log Out",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
               ),
             ],
           )

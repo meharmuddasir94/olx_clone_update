@@ -16,7 +16,7 @@ class _storeHomepageState extends State<storeHomepage> {
   final List<Widget> screen = [
     dashboard(),
     accountLogedin(),
-    account(),
+    accountwithoutLogedin(),
     chat(),
     myADs(),
   ];

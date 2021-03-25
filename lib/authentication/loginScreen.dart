@@ -1,6 +1,9 @@
 import 'dart:ui';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:olx_clone/StoreHome/storeHomepage.dart';
+import 'package:olx_clone/services/auth_service.dart';
 
 // ignore: camel_case_types
 class loginScreen extends StatefulWidget {
@@ -17,6 +20,11 @@ class _loginScreenState extends State<loginScreen> {
   bool isSignupScreen = false;
   bool isMale = false;
   bool isRememberMe = false;
+  AuthService _authService = AuthService();
+  final fullnameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,8 +174,10 @@ class _loginScreenState extends State<loginScreen> {
       margin: EdgeInsets.only(top: 20),
       child: Column(
         children: [
-          buildTextField(Icons.email_outlined, "Enter Email...", false, true,TextInputAction.next),
-          buildTextField(Icons.lock_outlined, "Enter Password", true, false,TextInputAction.go),
+          buildTextField(Icons.email_outlined, "Enter Email...", false, true,
+              TextInputAction.next, emailController),
+          buildTextField(Icons.lock_outlined, "Enter Password", true, false,
+              TextInputAction.go, passwordController),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -175,7 +185,7 @@ class _loginScreenState extends State<loginScreen> {
                 children: [
                   Checkbox(
                       value: isRememberMe,
-                      activeColor: unactiveColor,
+                      activeColor: Colors.greenAccent,
                       onChanged: (value) {
                         setState(() {
                           isRememberMe = !isRememberMe;
@@ -191,7 +201,9 @@ class _loginScreenState extends State<loginScreen> {
                 ],
               ),
               TextButton(
-                  onPressed: null,
+                  onPressed: () {
+                    showToast("Option Not available");
+                  },
                   child: Text(
                     "Forgot Pasword?",
                     style: TextStyle(
@@ -250,6 +262,9 @@ class _loginScreenState extends State<loginScreen> {
       child: Center(
         child: GestureDetector(
           onTap: () {
+            isSignupScreen ? registerUser(context) : signIn(context);
+            isSignupScreen ? print("Sign up clicked") : print("Login clicked");
+
             print("clicked");
           },
           child: Container(
@@ -301,10 +316,12 @@ class _loginScreenState extends State<loginScreen> {
       margin: EdgeInsets.only(top: 20),
       child: Column(
         children: [
-          buildTextField(
-              Icons.account_box_outlined, "Enter UserName", false, false,TextInputAction.next),
-          buildTextField(Icons.email_outlined, "Enter Email..", false, true,TextInputAction.next),
-          buildTextField(Icons.lock_outline, "Enter Password", true, false,TextInputAction.go),
+          buildTextField(Icons.account_box_outlined, "Enter UserName", false,
+              false, TextInputAction.next, fullnameController),
+          buildTextField(Icons.email_outlined, "Enter Email..", false, true,
+              TextInputAction.next, emailController),
+          buildTextField(Icons.lock_outline, "Enter Password", true, false,
+              TextInputAction.go, passwordController),
           Row(
             children: [
               Padding(
@@ -411,13 +428,14 @@ class _loginScreenState extends State<loginScreen> {
     );
   }
 
-  Widget buildTextField(
-      IconData icon, String hinnt, bool ispasword, bool isEmail, TextInputAction action) {
+  Widget buildTextField(IconData icon, String hinnt, bool ispasword,
+      bool isEmail, TextInputAction action, TextEditingController contr) {
     return Padding(
       padding: EdgeInsets.only(bottom: 8),
       child: TextField(
         obscureText: ispasword,
         textInputAction: action,
+        controller: contr,
         keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
         decoration: InputDecoration(
           prefixIcon: Icon(
@@ -442,5 +460,52 @@ class _loginScreenState extends State<loginScreen> {
         ),
       ),
     );
+  }
+
+  void registerUser(BuildContext context) async {
+    _authService
+        .createPerson(fullnameController.text, emailController.text,
+            passwordController.text)
+        .then((value) {
+      if (value != null) {
+        showToast("Sign up Successfully");
+        emailController.clear();
+        fullnameController.clear();
+        passwordController.clear();
+
+        return Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => loginScreen()));
+      } else {
+        showToast("Sign up Failed");
+      }
+    });
+  }
+
+  void signIn(BuildContext context) async {
+    _authService
+        .signIn(emailController.text, passwordController.text)
+        .then((value) {
+      if (value != null) {
+        showToast("Loged in Successfully");
+        emailController.clear();
+        fullnameController.clear();
+        passwordController.clear();
+        return Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => storeHomepage()));
+      } else {
+        showToast("Not Successful");
+      }
+    });
+  }
+
+  showToast(String text) {
+    return Fluttertoast.showToast(
+        msg: text,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 }
