@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:olx_clone/StoreHome/storeHomepage.dart';
 import 'package:olx_clone/authentication/loginScreen.dart';
+import 'package:olx_clone/configuration.dart';
 import 'package:olx_clone/customIcon/custom_icon_icons.dart';
 
 // ignore: camel_case_types
@@ -13,6 +14,7 @@ class loginOptions extends StatefulWidget {
 // ignore: camel_case_types
 class _loginOptionsState extends State<loginOptions> {
   Color background = Color(0xff003034);
+  Color newcolor = Color(0xff61e5d2);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,9 +24,9 @@ class _loginOptionsState extends State<loginOptions> {
         backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(
-            Icons.cancel_sharp,
+            Icons.cancel,
             color: Colors.grey,
-            size: 22,
+            size: 25,
           ),
           onPressed: () {
             Route route = MaterialPageRoute(builder: (_) => storeHomepage());
@@ -43,8 +45,11 @@ class _loginOptionsState extends State<loginOptions> {
               margin: EdgeInsets.only(top: 20),
               height: 200,
               width: 210,
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
               child: Image.asset(
-                "images/secondbackground.jpg",
+                "images/secondbackground.png",
               ),
             ),
           ),
@@ -52,21 +57,29 @@ class _loginOptionsState extends State<loginOptions> {
           Expanded(
             flex: 2,
             child: Container(
+              margin: EdgeInsets.only(top: 80),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: background,
+                gradient: LinearGradient(colors: [
+                  primaryGreen,
+                  Colors.greenAccent,
+                ]),
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10)),
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)),
               ),
               child: Column(
                 children: [
                   SizedBox(
-                    height: 45,
+                    height: 25,
                   ),
-                  SizedBox(
-                    height: 50,
+                  Container(
+                    height: 40,
                     width: 330,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                      Radius.circular(25),
+                    )),
                     child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor:
@@ -87,7 +100,7 @@ class _loginOptionsState extends State<loginOptions> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.openSansCondensed(
                                   textStyle: TextStyle(
-                                      color: background, fontSize: 23),
+                                      color: background, fontSize: 18),
                                 ),
                               ),
                             )
@@ -98,7 +111,7 @@ class _loginOptionsState extends State<loginOptions> {
                     height: 15,
                   ),
                   SizedBox(
-                    height: 50,
+                    height: 40,
                     width: 330,
                     child: ElevatedButton(
                         style: ButtonStyle(
@@ -120,7 +133,7 @@ class _loginOptionsState extends State<loginOptions> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.openSansCondensed(
                                   textStyle: TextStyle(
-                                      color: background, fontSize: 23),
+                                      color: background, fontSize: 18),
                                 ),
                               ),
                             )
@@ -130,9 +143,12 @@ class _loginOptionsState extends State<loginOptions> {
                   SizedBox(
                     height: 15,
                   ),
-                  SizedBox(
-                    height: 50,
+                  Container(
+                    height: 40,
                     width: 330,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
                     child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor:
@@ -153,7 +169,7 @@ class _loginOptionsState extends State<loginOptions> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.openSansCondensed(
                                   textStyle: TextStyle(
-                                      color: background, fontSize: 23),
+                                      color: background, fontSize: 18),
                                 ),
                               ),
                             )
@@ -164,7 +180,7 @@ class _loginOptionsState extends State<loginOptions> {
                     height: 15,
                   ),
                   SizedBox(
-                    height: 50,
+                    height: 40,
                     width: 330,
                     child: ElevatedButton(
                         style: ButtonStyle(
@@ -197,7 +213,7 @@ class _loginOptionsState extends State<loginOptions> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.openSansCondensed(
                                   textStyle: TextStyle(
-                                      color: background, fontSize: 23),
+                                      color: background, fontSize: 18),
                                 ),
                               ),
                             )
@@ -210,7 +226,7 @@ class _loginOptionsState extends State<loginOptions> {
                       "If you Continue, You are accepting",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.ubuntu(
-                        textStyle: TextStyle(color: Colors.black, fontSize: 13),
+                        textStyle: TextStyle(color: Colors.black, fontSize: 11),
                       ),
                     ),
                   ),
@@ -220,7 +236,7 @@ class _loginOptionsState extends State<loginOptions> {
                       "OLX terms and Conditions and Privacy Policies.",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.ubuntu(
-                        textStyle: TextStyle(color: Colors.black, fontSize: 13),
+                        textStyle: TextStyle(color: Colors.black, fontSize: 11),
                         decoration: TextDecoration.underline,
                       ),
                     ),

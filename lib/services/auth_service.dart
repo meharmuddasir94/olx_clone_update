@@ -26,14 +26,14 @@ class AuthService {
     return await _auth.signOut();
   }
 
-  Future<User?> createPerson(String name, String email, String password) async {
+  Future<User?> createPerson(String name, String email, String password,String gender) async {
     var user = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
-
+  
     await _firestore
         .collection("users")
         .doc(user.user!.uid)
-        .set({'name': name, 'email': email, 'uid': user.user!.uid});
+        .set({'name': name, 'email': email,'gender':gender ,'uid': user.user!.uid});
 
     return user.user;
   }
